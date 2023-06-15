@@ -1,5 +1,6 @@
 import streamlit as st
 from pytube import YouTube
+import os
 
 def download_youtube_video(url, output_path):
     try:
@@ -24,12 +25,15 @@ def main():
     video_url = st.text_input("Enter YouTube video URL")
 
     # Define output directory for downloaded video
-    output_directory = "./downloads"
+    output_directory = st.text_input("Select output directory", type="folder")
 
     # Download button
     if st.button("Download"):
         if video_url:
-            download_youtube_video(video_url, output_directory)
+            if output_directory:
+                download_youtube_video(video_url, output_directory)
+            else:
+                st.warning("Please select an output directory.")
         else:
             st.warning("Please enter a valid YouTube video URL.")
 
