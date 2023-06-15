@@ -24,17 +24,11 @@ def main():
     # Get video URL from user input
     video_url = st.text_input("Enter YouTube video URL")
 
-    # Select output directory
-    output_directory = st.file_uploader("Select output directory", type="directory", key="output")
-
     # Download button
     if st.button("Download"):
         if video_url:
-            if output_directory:
-                output_path = output_directory.name
-                download_youtube_video(video_url, output_path)
-            else:
-                st.warning("Please select an output directory.")
+            output_path = os.path.join(os.path.expanduser("~"), "Downloads")
+            download_youtube_video(video_url, output_path)
         else:
             st.warning("Please enter a valid YouTube video URL.")
 
